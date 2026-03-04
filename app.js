@@ -1,6 +1,6 @@
 
 //let participantes=[];
-let restricciones={};
+//let restricciones={};
 
 
 //valida que el campo no esté vacio para poder continuar
@@ -42,6 +42,8 @@ function agregarCreador(){
         return;
     }
 
+    const participantes=obtenerParticipantes();
+    console.log(participantes);
     if(checkbox){
         if(!participantes.includes(creador)){
             participantes.push(creador);
@@ -137,12 +139,15 @@ function agregarRestricciones(){
         return;
     }
 
+    const restricciones=obtenerRestricciones();
+    console.log(restricciones);
     if(!restricciones[base]){
         restricciones[base]=[];
     }
 
     restricciones[base].push(restringido);
 
+    localStorage.setItem("restricciones",JSON.stringify(restricciones));
 
     mostrarRestricciones();
 }
@@ -151,6 +156,8 @@ function mostrarRestricciones(){
     const lista=document.getElementById("listaRestricciones");
     
     lista.innerHTML="";
+
+    const restricciones=obtenerRestricciones();
 
     for(let persona in restricciones){
         restricciones[persona].forEach(r=>{
@@ -167,6 +174,8 @@ function mostrarRestricciones(){
 
 //funcion que nos ayudará a validar que se cumplan las condiciones del sorteo
 function esValido(asignaciones){
+    const restricciones=obtenerRestricciones();
+
     //para cada persona de asignaciones comparamos
     for (let persona in asignaciones){
 
@@ -194,6 +203,9 @@ function esValido(asignaciones){
 function sorteo(){
     let intentos= 0;
     let maxIntentos=1000;
+
+    const participantes=obtenerParticipantes();
+    const restricciones=obtenerRestricciones();
 
     while (intentos<maxIntentos){
 
@@ -255,6 +267,20 @@ function mostrarResultado(asignaciones){
 
 function obtenerParticipantes(){
     const arrayParticipantes=localStorage.getItem("participantes");
+    if(!arrayParticipantes){
+        return [];
+    }
+
     const participantes=JSON.parse(arrayParticipantes);
     return participantes;
+}
+
+function obtenerRestricciones(){
+    const arrayRestricciones=localStorage.getItem("restricciones");
+    if(!arrayRestricciones){
+        return {};
+    }
+
+    const restricciones=JSON.parse(arrayRestricciones);
+    return restricciones;
 }
