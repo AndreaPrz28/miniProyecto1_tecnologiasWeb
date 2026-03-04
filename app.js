@@ -1,5 +1,5 @@
 
-let participantes=[];
+//let participantes=[];
 let restricciones={};
 
 
@@ -44,7 +44,9 @@ function agregarCreador(){
 
     if(checkbox){
         if(!participantes.includes(creador)){
-            participantes.push(creador);  
+            participantes.push(creador);
+            //pasamos al local storage el primer participante
+            localStorage.setItem("participantes", JSON.stringify(participantes));  
         }
     }
 
@@ -61,6 +63,8 @@ function agregarParticipante(){
     const input = document.getElementById("inputParticipante");
     const nombre= input.value.trim();
     if(nombre==="") return;
+
+    const participantes=obtenerParticipantes();
     
     if(participantes.includes(nombre)){
         alert("Este participante ya está registrado");
@@ -68,6 +72,8 @@ function agregarParticipante(){
     }
 
     participantes.push(nombre);
+
+    localStorage.setItem("participantes", JSON.stringify(participantes));
 
     input.value="";
     actualizarLista();
@@ -77,6 +83,10 @@ function agregarParticipante(){
 function actualizarLista(){
     const lista= document.getElementById("listaParticipantes");
     lista.innerHTML="";
+    
+    //recuperamos participantes y lo transformamos en array
+    //si no hay nada en participantes retornamos un array vacío
+    const participantes= JSON.parse(localStorage.getItem("participantes")) || [];
 
     participantes.forEach((p, index)=>{
         lista.innerHTML+=`
@@ -234,4 +244,11 @@ function mostrarResultado(asignaciones){
             </li>     
         `;
     }
+}
+
+
+function obtenerParticipantes(){
+    const arrayParticipantes=localStorage.getItem("participantes");
+    const participantes=JSON.parse(arrayParticipantes);
+    return participantes;
 }
