@@ -1,4 +1,4 @@
-
+//Array y objeto para antes de guardar en local storage
 //let participantes=[];
 //let restricciones={};
 
@@ -29,12 +29,14 @@ const btnComenzarSorteo=document.getElementById("btnIniciarSorteo");
 btnComenzarSorteo.addEventListener("click", comenzarSorteo);
 
 
-
+//función para agregar al creador del sorteo
 function agregarCreador(){
     const input=document.getElementById("inputCreador");
     const checkboxCreador=document.getElementById("creadorParticipa");
 
+    //traemos el valor del campo y le quitamos espacios en blanco
     const creador=input.value.trim();
+    //validamos si el checkbox fue seleccionado
     const checkbox=checkboxCreador.checked;
 
     if(!creador){
@@ -42,8 +44,10 @@ function agregarCreador(){
         return;
     }
 
+    //traemos los participantes del local storage
     const participantes=obtenerParticipantes();
     console.log(participantes);
+    //si el checkbox fue seleccionado incluimos al creador
     if(checkbox){
         if(!participantes.includes(creador)){
             participantes.push(creador);
@@ -53,8 +57,8 @@ function agregarCreador(){
     }
 
     console.log(participantes)
+    //imprimimos en pantalla el nombre del participante
     actualizarLista();
-
 }
 
 
@@ -62,34 +66,43 @@ function agregarCreador(){
 
 
 function agregarParticipante(){
+    //traemos los datos del modal y quitamos espacios en blanco
     const input = document.getElementById("inputParticipante");
     const nombre= input.value.trim();
+    //si el campo está vacio, retoramos
     if(nombre==="") return;
 
+    //recuperamos la info del localStorage
     const participantes=obtenerParticipantes();
     
+    //si el array de participante ya tiene el nombre que se ingresó
+    //mandamos un alert y retornamos
     if(participantes.includes(nombre)){
         alert("Este participante ya está registrado");
         return;
     }
 
+    //agregamos el nombre del participante al array
     participantes.push(nombre);
-
+    //actualizamos el localStorage con el nuevo participante
     localStorage.setItem("participantes", JSON.stringify(participantes));
-
+    //limpiamos el campo del modal
     input.value="";
+    //actualizamos pantalla con el nuevo nombre
     actualizarLista();
 
 }
 
 function actualizarLista(){
+    //traemos la lista del modal
     const lista= document.getElementById("listaParticipantes");
     lista.innerHTML="";
     
-    //recuperamos participantes y lo transformamos en array
-    //si no hay nada en participantes retornamos un array vacío
-    const participantes= JSON.parse(localStorage.getItem("participantes")) || [];
+    //recuperamos participantes
+    const participantes= obtenerParticipantes();
 
+    //recorremos el array y agregamos a cada participante junto con un botón para eliminarlo
+    //se le añade tambien el evento onclick para eliminarlo
     participantes.forEach((p, index)=>{
         lista.innerHTML+=`
             <li class="list-group-item d-flex justify-content-between">
@@ -101,6 +114,7 @@ function actualizarLista(){
         `;
     });
 }
+
 
 function eliminarParticipante(index){
     const participantes= JSON.parse(localStorage.getItem("participantes")) || [];
