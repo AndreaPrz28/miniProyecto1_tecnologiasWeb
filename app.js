@@ -3,9 +3,46 @@
 //let restricciones={};
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    configurarBotonPrincipal();
+
+    //valida que el campo no esté vacio para poder continuar
+    const btnAgregarCreador=document.getElementById("btnAgregarCreador");
+    btnAgregarCreador.addEventListener("click", agregarCreador);
+
+
+    //inicia el llamado a la función de agregar participantes
+    const btnAgregarParticipante=document.getElementById("btnAgregarParticipante");
+    btnAgregarParticipante.addEventListener("click", agregarParticipante);
+
+
+    //traemos el modal de las restricciones y le pasamos las opciones a los selects
+    const modal3 = document.getElementById("exampleModal3");
+
+    modal3.addEventListener("show.bs.modal", () => {
+
+        cargarSelects();
+        mostrarRestricciones();
+
+    });
+
+
+    //cargar restricciones
+    const btnAgregarRestricciones=document.getElementById("btnAgregarRestriccion");
+    btnAgregarRestricciones.addEventListener("click", agregarRestricciones);
+
+
+    //iniciamos el sorteo
+    // const btnComenzarSorteo=document.getElementById("btnIniciarSorteo");
+    // btnComenzarSorteo.addEventListener("click", comenzarSorteo);
+
+});
+
+
+
+
 //funciones nuevas para manejar toda la información del evento en un solo objeto
 //este objeto contendrá organizador, participantes, restricciones, tipo de evento, fecha y presupuesto
-
 function obtenerEvento(){
 
     const eventoGuardado = localStorage.getItem("evento");
@@ -60,35 +97,7 @@ function obtenerRestricciones(){
 
 
 
-//valida que el campo no esté vacio para poder continuar
-const btnAgregarCreador=document.getElementById("btnAgregarCreador");
-btnAgregarCreador.addEventListener("click", agregarCreador);
 
-
-//inicia el llamado a la función de agregar participantes
-const btnAgregarParticipante=document.getElementById("btnAgregarParticipante");
-btnAgregarParticipante.addEventListener("click", agregarParticipante);
-
-
-//traemos el modal de las restricciones y le pasamos las opciones a los selects
-const modal3 = document.getElementById("exampleModal3");
-
-modal3.addEventListener("show.bs.modal", () => {
-
-    cargarSelects();
-    mostrarRestricciones();
-
-});
-
-
-//cargar restricciones
-const btnAgregarRestricciones=document.getElementById("btnAgregarRestriccion");
-btnAgregarRestricciones.addEventListener("click", agregarRestricciones);
-
-
-//iniciamos el sorteo
-// const btnComenzarSorteo=document.getElementById("btnIniciarSorteo");
-// btnComenzarSorteo.addEventListener("click", comenzarSorteo);
 
 
 
@@ -158,7 +167,7 @@ function agregarParticipante(){
     let evento=obtenerEvento();
     
     const participantes=evento.participantes;
-
+    console.log(participantes);
     //si el array de participante ya tiene el nombre que se ingresó
     //mandamos un alert y retornamos
     if(participantes.includes(nombre)){
@@ -425,71 +434,78 @@ function comenzarSorteo(){
     const resultado=sorteo();
 
     if(resultado){
-
         mostrarResultado(resultado);
+        
+        const seccionResultado=document.getElementById("seccionResultados");
 
+        if(seccionResultado){
+            seccionResultado.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
     }
 
 }
 
 
+//se elimina por duplicidad
+// function mostrarResultado(asignaciones){
 
-function mostrarResultado(asignaciones){
+//     const lista=document.getElementById("listaResultado");
 
-    const lista=document.getElementById("listaResultado");
+//     lista.innerHTML="";
 
-    lista.innerHTML="";
+//     for(let persona in asignaciones){
 
-    for(let persona in asignaciones){
+//         lista.innerHTML+=`
 
-        lista.innerHTML+=`
+//             <li class="list-group-item text-center fs-5">
 
-            <li class="list-group-item text-center fs-5">
+//                 🎁 <b>${persona}</b> regala a 👉 <b>${asignaciones[persona]}</b>
 
-                🎁 <b>${persona}</b> regala a 👉 <b>${asignaciones[persona]}</b>
+//             </li>     
 
-            </li>     
+//         `;
 
-        `;
+//     }
 
-    }
-
-}
+// }
 
 // 1. Escuchar el click del botón de guardar detalles
-const btnGuardarDetalles = document.getElementById("btnGuardarDetalles");
-btnGuardarDetalles.addEventListener("click", guardarDetallesEvento);
+// const btnGuardarDetalles = document.getElementById("btnGuardarDetalles");
+// btnGuardarDetalles.addEventListener("click", guardarDetallesEvento);
 
 
-function obtenerParticipantes(){
-    const arrayParticipantes=localStorage.getItem("participantes");
-    if(!arrayParticipantes){
-        return [];
-    }
+// function obtenerParticipantes(){
+//     const evento=obtenerEvento();
+//     const participantes=evento.participantes;
+//     if(!participantes){
+//         return [];
+//     }
 
-    const motivoSelect = document.getElementById("selectMotivo").value;
-    const otroMotivo = document.getElementById("otroMotivo").value;
+//     const motivoSelect = document.getElementById("selectMotivo").value;
+//     const otroMotivo = document.getElementById("otroMotivo").value;
     
-    // Si eligió "Otro", usamos el texto del input
-    evento.tipoEvento = (motivoSelect === "Otro") ? otroMotivo : motivoSelect;
-    evento.fecha = document.getElementById("inputFecha").value;
-    evento.presupuesto = document.getElementById("inputPresupuesto").value;
+//     // Si eligió "Otro", usamos el texto del input
+//     evento.tipoEvento = (motivoSelect === "Otro") ? otroMotivo : motivoSelect;
+//     evento.fecha = document.getElementById("inputFecha").value;
+//     evento.presupuesto = document.getElementById("inputPresupuesto").value;
 
-    guardarEvento(evento);
-    console.log("Detalles guardados:", evento);
-}
+//     guardarEvento(evento);
+//     console.log("Detalles guardados:", evento);
+// }
 
 
 
-function obtenerRestricciones(){
-    const arrayRestricciones=localStorage.getItem("restricciones");
-    if(!arrayRestricciones){
-        return {};
-    }
+// function obtenerRestricciones(){
+//     const arrayRestricciones=localStorage.getItem("restricciones");
+//     if(!arrayRestricciones){
+//         return {};
+//     }
 
-    const restricciones=JSON.parse(arrayRestricciones);
-    return restricciones;
-}
+//     const restricciones=JSON.parse(arrayRestricciones);
+//     return restricciones;
+// }
 
 
 
@@ -573,6 +589,8 @@ function mostrarResultado(asignaciones) {
     
     // Inicializar los eventos de arrastre
     prepararDragAndDrop();
+    
+    
 }
 
 
@@ -637,12 +655,22 @@ function guardarSugerencias() {
     // Persistencia en LocalStorage segun requerimiento
     localStorage.setItem("sugerenciasRegalos", JSON.stringify(seleccionados));
     alert("Lista de sugerencias guardada correctamente");
+
+    //llamamos nueamente a la función que toma el estado del localStorage actualizado
+    configurarBotonPrincipal();
+
+    const seccionHero=document.getElementById("seccionHero");
+
+    if(seccionHero){
+        seccionHero.scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
 }
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    configurarBotonPrincipal();
-});
+
 
 function configurarBotonPrincipal() {
     const btn = document.getElementById("btnAccionPrincipal");
@@ -652,7 +680,7 @@ function configurarBotonPrincipal() {
 
     if (config) {
         // --- ESCENARIO A: YA HAY DATOS (BOTÓN PARA REINICIAR) ---
-        btn.innerText = "NUEVO SORTEO";
+        btn.textContent = "NUEVO SORTEO";
         btn.style.backgroundColor = "var(--color-accent)";
         btn.style.border = "none";
         
@@ -679,7 +707,7 @@ function configurarBotonPrincipal() {
 
     } else {
         // --- ESCENARIO B: NO HAY DATOS (EMPEZAR DE CERO) ---
-        btn.innerText = "EMPEZAR AHORA";
+        btn.textContent = "EMPEZAR AHORA";
         btn.style.backgroundColor = "var(--color-primario)";
         btn.style.border = "none";
         
@@ -700,8 +728,16 @@ function llenarCardResumen(datos) {
     const titulo = document.getElementById("resumenTitulo");
     const fecha = document.getElementById("resumenFecha");
     const presupuesto = document.getElementById("resumenPresupuesto");
+    const regalos = document.getElementById("resumenRegalos");
 
     if(titulo) titulo.innerText = datos.evento || "Evento";
     if(fecha) fecha.innerText = datos.fecha || "Sin fecha";
     if(presupuesto) presupuesto.innerText = datos.presupuesto || "0";
+    
+
+    const regalosGuardados= JSON.parse(localStorage.getItem("sugerenciasRegalos")) || "Sin sugerencias";
+    if(regalos){
+        regalos.innerText=regalosGuardados.join(", ");
+    }
+
 }
