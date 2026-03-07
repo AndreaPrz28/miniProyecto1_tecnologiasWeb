@@ -10,16 +10,16 @@
 <body  class="bg-secondary-subtle">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Inicio</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <a class="navbar-brand fw-bold" href="index.html">🎲 SORTEO MASTER</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="aboutUs.html">Sobre Nosotros</a>
+                        <a class="nav-link" href="index.html">Crear Sorteo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold text-warning" href="misEventos.html">📂 MIS EVENTOS</a>
                     </li>
                 </ul>
             </div>
@@ -105,13 +105,54 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary"
-                    data-bs-target="#exampleModal3"
+                    data-bs-target="#modalDetalles"
                     data-bs-toggle="modal"
                     data-bs-dismiss="modal">Siguiente</button>
             </div>
             </div>
         </div>        
     </div>
+
+    <!-- Modal que guarda el resto de datos del evento -->
+    <div class="modal fade" id="modalDetalles" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h1 class="modal-title fs-5">📅 DETALLES DEL INTERCAMBIO</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <label class="fw-bold mb-2">¿Cuál es el motivo?</label>
+                    <select id="selectMotivo" class="form-select mb-3">
+                        <option value="Navidad">Navidad 🎄</option>
+                        <option value="San Valentín">San Valentín ❤️</option>
+                        <option value="Día del Niño">Día del Niño 🧸</option>
+                        <option value="Día de la Madre">Día de la Madre 💐</option>
+                        <option value="Otro">Otro (Específica abajo)</option>
+                    </select>
+                    <input type="text" id="otroMotivo" class="form-control mb-3 d-none" placeholder="Escribe el motivo...">
+
+                    <label class="fw-bold mb-2">¿Cuándo será el intercambio?</label>
+                    <input type="date" id="inputFecha" class="form-control mb-3">
+
+                    <label class="fw-bold mb-2">Presupuesto máximo ($)</label>
+                    <div class="d-flex gap-2 flex-wrap mb-3">
+                        <button type="button" class="btn btn-outline-secondary btn-sm btn-pre" value="100">$100</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm btn-pre" value="200">$200</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm btn-pre" value="500">$500</button>
+                    </div>
+                    <input type="number" id="inputPresupuesto" class="form-control" placeholder="O introduce otra cantidad">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary w-100" id="btnGuardarDetalles" data-bs-target="#exampleModal3" data-bs-toggle="modal" data-bs-dismiss="modal">
+                        CONTINUAR A RESTRICCIONES ➡️
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- Modal para excluir sorteados -->
     <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

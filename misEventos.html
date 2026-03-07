@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Eventos - Sorteo Master</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container my-5">
+        <h2 class="text-center mb-4 fw-bold">TUS EVENTOS GUARDADOS</h2>
+        
+        <div id="contenedorEventos" class="row justify-content-center">
+            <div class="col-md-6 text-center" id="mensajeVacio">
+                <p class="text-muted">Aún no tienes eventos creados. ¡Ve al inicio y crea uno!</p>
+                <a href="index.html" class="btn btn-primary">Crear mi primer sorteo</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lógica rápida para leer y mostrar
+        document.addEventListener("DOMContentLoaded", () => {
+            const evento = JSON.parse(localStorage.getItem("evento"));
+            const contenedor = document.getElementById("contenedorEventos");
+
+            if (evento && evento.organizador) {
+                document.getElementById("mensajeVacio").style.display = "none";
+                
+                contenedor.innerHTML = `
+                    <div class="col-md-8">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h3 class="text-primary mb-0">🎈 ${evento.tipoEvento || 'Intercambio'}</h3>
+                                    <span class="badge bg-success">Activo</span>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <p class="small text-muted mb-0">Organizador</p>
+                                        <p class="fw-bold">${evento.organizador}</p>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <p class="small text-muted mb-0">Fecha</p>
+                                        <p class="fw-bold">${evento.fecha || 'Sin fecha'}</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="small text-muted mb-0">Presupuesto</p>
+                                        <p class="fw-bold text-success">$${evento.presupuesto || '0'}</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="small text-muted mb-0">Participantes</p>
+                                        <p class="fw-bold">${evento.participantes.length}</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <p class="small fw-bold">Lista de invitados:</p>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        ${evento.participantes.map(p => `<span class="badge bg-light text-dark border">${p}</span>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
