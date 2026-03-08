@@ -13,17 +13,23 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark shadow mb-5">
         <div class="container-fluid">
-            <a class="navbar-brand fs-3" href="#">🎲 Tomboland</a>
+            <a class="navbar-brand d-flex align-items-center fs-3" href="index.html">
+                <img src="src/logo.png" alt="Logo Tomboland" width="80" height="80" class="me-2">
+                TOMBOLAND
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="index.html">INICIO</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active fw-bold" href="aboutUs.html">SOBRE NOSOTROS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active fw-bold" href="misEventos.html">Mis eventos</a>
+                        <a class="nav-link active fw-bold" href="misEventos.html">MIS EVENTOS</a>
                     </li>
                 </ul>
             </div>
@@ -34,7 +40,7 @@
     <section id="heroPresentacion" class="container-fluid py-5 text-center" style="background: var(--color-bg); min-height: 70vh; display:flex; align-items:center;">
         <div class="container">
             <h1 class="display-3 mb-4 text-uppercase" style="color: var(--color-primario); font-family: 'Bungee';">
-                🎲 Tomboland
+                 Tomboland
             </h1>
 
             <p class="lead mb-4 fw-bold text-muted">
@@ -102,7 +108,7 @@
     <div id="seccionResultados" class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8 bg-white p-4 rounded-4 shadow-sm border border-3 border-info">
-                <h3 class="text-center mb-4"><span class="badge bg-warning text-dark">🏆 RESULTADOS</span></h3>
+                <h3 class="text-center mb-4"><span class="badge bg-warning text-dark"> RESULTADOS</span></h3>
                 <ul id="listaResultado" class="list-group list-group-flush">
                     </ul>
             </div>
@@ -115,7 +121,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">👤 ¿QUIÉN ERES?</h1>
+                    <h1 class="modal-title fs-5"> ¿QUIÉN ERES?</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
@@ -128,7 +134,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary rounded-pill px-4"  id="btnAgregarCreador">SIGUIENTE ➡️</button>
+                    <button type="button" class="btn btn-primary rounded-pill px-4"  id="btnAgregarCreador">SIGUIENTE</button>
                 </div>
             </div>
         </div>
@@ -140,7 +146,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-info text-white">
-                    <h1 class="modal-title fs-5">📅 DETALLES DEL EVENTO</h1>
+                    <h1 class="modal-title fs-5"> DETALLES DEL EVENTO</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -167,7 +173,7 @@
                     <input id="customPresupuesto" type="number" class="form-control d-none" placeholder="Monto personalizado">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary w-100" id="btnGuardarConfig">¡TODO LISTO, A SORTEAR! 🎲</button>
+                    <button type="button" class="btn btn-primary w-100" id="btnGuardarConfig">¡TODO LISTO, A SORTEAR!</button>
                 </div>
             </div>
         </div>
@@ -179,7 +185,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">👥 PARTICIPANTES</h1>
+                    <h1 class="modal-title fs-5"> PARTICIPANTES</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -190,7 +196,7 @@
                     <ul id="listaParticipantes" class="list-group"></ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary rounded-pill w-100">¡LISTO, SIGUIENTE! ➡️</button>
+                    <button type="button" class="btn btn-primary rounded-pill w-100">¡LISTO, SIGUIENTE! </button>
                 </div>
             </div>
         </div>
@@ -200,7 +206,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white border-0">
-                    <h1 class="modal-title fs-5">🚫 RESTRICCIONES</h1>
+                    <h1 class="modal-title fs-5"> RESTRICCIONES</h1>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -212,13 +218,13 @@
                     <select id="personaRestringida" class="form-select mb-3"></select>
 
                     <button id="btnAgregarRestriccion" class="btn btn-outline-danger w-100 fw-bold border-2">
-                        ⛔ AÑADIR REGLA
+                         AÑADIR REGLA
                     </button>
                     <hr>
                     <ul id="listaRestricciones" class="list-group mt-3"></ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-lg w-100">SIGUIENTE ➡️</button>
+                    <button type="button" class="btn btn-primary btn-lg w-100">SIGUIENTE </button>
                 </div>
             </div>
         </div>
