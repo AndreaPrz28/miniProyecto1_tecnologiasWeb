@@ -36,6 +36,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // const btnComenzarSorteo=document.getElementById("btnIniciarSorteo");
     // btnComenzarSorteo.addEventListener("click", comenzarSorteo);
 
+    const btnIrARestricciones = document.querySelector('#exampleModal2 .modal-footer .btn-primary');
+    btnIrARestricciones.addEventListener('click', () => {
+        const evento = obtenerEvento();
+        if (evento.participantes.length < 2) {
+            Swal.fire("¡Espera!", "Agrega al menos 2 participantes para el sorteo.", "warning");
+            return;
+        }
+        saltarSiguiente('exampleModal2', 'exampleModal3');
+    });
+
+    const btnIrAConfig = document.querySelector('#exampleModal3 .modal-footer .btn-primary');
+    btnIrAConfig.addEventListener('click', () => {
+        saltarSiguiente('exampleModal3', 'modalConfiguracion');
+    });
+
 });
 
 
@@ -151,6 +166,8 @@ function agregarCreador(){
     //imprimimos en pantalla el nombre del participante
     actualizarLista();
 
+    //Saltamos al siguiente modal
+    saltarSiguiente('exampleModal', 'exampleModal2');
 }
 
 
@@ -696,12 +713,13 @@ function guardarSugerencias() {
         });
     }
 
-    alert("Lista de sugerencias guardada correctamente");
-    // Swal.fire({
-    //     icon: "success",
-    //     title: "Sorteo generado",
-    //     text: "Lista de sugerencias guardada correctamente."
-    // });
+    //alert("Lista de sugerencias guardada correctamente");
+    Swal.fire({
+        icon: "success",
+        title: "Sorteo generado",
+        text: "Lista de sugerencias guardada correctamente.",
+        returnFocus: false
+    });
 
 }
 
@@ -829,5 +847,24 @@ function irAlInicio() {
         seccion.scrollIntoView({
             behavior: "smooth"
         });
+    }
+}
+
+//función para tener el control total de los modales
+function saltarSiguiente(idActual, idSiguiente) {
+    const elActual = document.getElementById(idActual);
+    const elSiguiente = document.getElementById(idSiguiente);
+
+    const modalActual = bootstrap.Modal.getInstance(elActual);
+    const modalSiguiente = new bootstrap.Modal(elSiguiente);
+
+    if (modalActual) {
+        modalActual.hide();
+        // Esperamos a que el anterior desaparezca por completo antes de abrir el otro
+        elActual.addEventListener('hidden.bs.modal', () => {
+            modalSiguiente.show();
+        }, { once: true });
+    } else {
+        modalSiguiente.show();
     }
 }

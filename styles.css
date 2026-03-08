@@ -86,3 +86,15 @@ input, select {
     transform: scale(1.05);
     border-color: var(--color-accent) !important;
 }
+
+.card-personal {
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza el movimiento */
+    cursor: pointer;
+}
+
+/* Efecto al pasar el mouse (Hover) */
+.card-personal:hover {
+    transform: translateY(-10px); /* Sube la tarjeta 10 píxeles */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important; /* Intensifica la sombra */
+    border-color: var(--color-primario); /* Opcional: cambia el borde al color de tu tema */
+}
