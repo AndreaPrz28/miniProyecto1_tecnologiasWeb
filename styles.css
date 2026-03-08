@@ -90,11 +90,18 @@ input, select {
 .card-personal {
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza el movimiento */
     cursor: pointer;
+    overflow: hidden
 }
 
 /* Efecto al pasar el mouse (Hover) */
 .card-personal:hover {
     transform: translateY(-10px); /* Sube la tarjeta 10 píxeles */
     box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important; /* Intensifica la sombra */
-    border-color: var(--color-primario); /* Opcional: cambia el borde al color de tu tema */
+    border-color: var(--color-primario); 
+}
+
+.card-img-top {
+    height: 250px;       
+    object-fit: cover;   /* Recorta la imagen para que llene el espacio sin deformarse */
+    object-position: center; /* Asegura que se vea el centro de la foto */
 }
